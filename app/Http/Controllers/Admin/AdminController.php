@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Check_valid;
-use App\User;
+use App\Model\User;
 use Auth;
 use Hash;
 use Illuminate\Http\Request;
