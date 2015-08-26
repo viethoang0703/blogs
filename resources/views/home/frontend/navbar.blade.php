@@ -8,25 +8,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Blog</a>
+            <a class="navbar-brand" ng-href="#">Blog</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ url('dashboard') }}">Dashboard</a></li>
+            <ul class="nav navbar-nav" ng-controller="SidebarController" ng-init="getLastest()">
+                <li><a href="/index">Home</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Category<span class="caret"></span></a>
+                    <a ng-href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Category<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        @foreach ($category_dropdown as $cat_dropdown)
-                        <li><a href="{{ url('category') }}/{{ $cat_dropdown->cat_url }}">{{$cat_dropdown->cat_name}}</a></li>
-                        @endforeach
+                        <li ng-repeat="cat_dropdown in dropdownlist"><a ng-href="/category/@{{ cat_dropdown.cat_url }}">@{{cat_dropdown.cat_name}}</a></li>
                     </ul>
                 </li>
                 <li><a href="#About">About</a></li>
             </ul>
-            <form class="navbar-form navbar-right" method="get" action="{{ url('news') }}" enctype="multipart/form-data">
-                <input type="text" class="form-control" name="keyword" value="" placeholder="Search...">
-                <button class="btn btn-default" type="submit">Search</button>
-            </form>
+            <div class="navbar-form navbar-right">
+                <input class="form-control" type="search" ng-model="keyword" placeholder="Search..." aria-label="Search">
+            </div>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
 </nav><!-- /.navbar -->

@@ -11,11 +11,11 @@
 |
  */
 
-Route::get('/', function () {
-	return view('auth.login');
-});
+// Route::get('/', function () {
+// 	return view('auth.login');
+// });
 
-// Authentication routes...
+//Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
@@ -52,8 +52,44 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('admin/user/change-role/{id}', 'Admin\AdminController@updateRole');
 });
 
-//Home
-Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'home\HomeController@index']);
-Route::get('news/{news_url}', ['as' => 'news', 'uses' => 'home\HomeController@show']);
-Route::get('category/{cat_url}', ['as' => 'category', 'uses' => 'home\HomeController@category']);
-Route::get('news/{key?}', ['as' => 'search', 'uses' => 'home\HomeController@search']);
+// //Home
+// Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'home\HomeController@index']);
+// Route::get('news/{news_url}', ['as' => 'news', 'uses' => 'home\HomeController@show']);
+// Route::get('category/{cat_url}', ['as' => 'category', 'uses' => 'home\HomeController@category']);
+// Route::get('news/{key?}', ['as' => 'search', 'uses' => 'home\HomeController@search']);
+
+//Test AngularJS
+
+Route::get('/', function () {
+	return view('template_home');
+});
+
+Route::get('/news/index', function () {
+	return view('home.index');
+});
+
+Route::get('home/{category}/{action?}', function ($category, $action = 'index') {
+	return view(join('.', ['home', $category, $action]));
+});
+
+Route::get('home/{category}/{action}/{id}', function ($category, $action = 'index', $id) {
+	return view(join('.', ['home', $category, $action]));
+});
+
+Route::group(['prefix' => 'api'], function () {
+	Route::resource('news', 'Home\HomeController');
+	Route::resource('prd', 'Home\HomeController@prd');
+	Route::resource('cat_dropdown', 'Home\HomeController@cat_dropdown');
+	Route::resource('category', 'Home\HomeController@category');
+	Route::resource('comments', 'Home\CommentController',
+		array('only' => array('index', 'show', 'store', 'destroy')));
+});
+
+Route::any('{undefinedRoute}', function ($undefinedRoute) {
+	return view('template_home');
+})->where('undefinedRoute', '([A-z\d-\/_.]+)?');
+
+// Return view comment index
+// Route::get('comments', function () {
+// 	return view('home.comment');
+// });

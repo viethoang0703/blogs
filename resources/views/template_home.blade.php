@@ -14,9 +14,17 @@
         <link rel="shortcut icon" href="{{{ asset('favicon.png') }}}">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('admins/css/bootstrap.min.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('admins/css/bootstrap-theme.min.css') }}" />
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
+        <script type="text/javascript" src="https://code.angularjs.org/1.4.4/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-route.min.js"></script>
+        <script type="text/javascript" src="{{ URL::asset('admins/js/jquery-1.11.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('admins/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ elixir('js/all.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('angular-utils-pagination/dirPagination.js') }}"></script>
     </head>
 
-    <body>
+    <body ng-app="HomeApp">
         <!-- Navbar -->
         @include('home.frontend.navbar')
         <!-- End Navbar -->
@@ -24,9 +32,9 @@
 
         <div class="container">
             <div class="row row-offcanvas row-offcanvas-right">
-                {!! Breadcrumbs::renderIfExists() !!}
+
                 <!-- content -->
-                @yield('contents')
+                <div ng-view></div>
                 <!-- End /.content -->
 
                 <!-- Sidebar-right -->
@@ -34,13 +42,12 @@
                 <!-- End Sidebar-right -->
 
             </div><!--/row row-offcanvas-right-->
-
             <!-- Footer -->
             @include('home.frontend.footer')
             <!-- End Footer -->
         </div><!--/.container-->
 
-        <script type="text/javascript" src="{{ URL::asset('admins/js/jquery-1.11.3.min.js') }}"></script>
-        <script type="text/javascript" src="{{ URL::asset('admins/js/bootstrap.min.js') }}"></script>
+
+
     </body>
 </html>

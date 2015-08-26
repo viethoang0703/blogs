@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Category;
 use App\Model\News;
 use Illuminate\Http\Request;
+use Response;
 
 class HomeController extends Controller {
 	/**
@@ -14,8 +15,7 @@ class HomeController extends Controller {
 	 * @return Response
 	 */
 	public function index() {
-		$news = News::orderBy('id')->paginate(5);
-		return view('home.dashboard', ['news' => $news]);
+		return Response::json(News::orderBy('id', 'desc')->get());
 	}
 
 	/**
@@ -25,15 +25,10 @@ class HomeController extends Controller {
 	 */
 	public function category($cat_url) {
 		/* Tìm bản ghi trong bảng Categories có điều kiện thỏa mãn */
-		$cat_id = Category::where('cat_url', '=', $cat_url)->first();
+		$cat_id = Category::where('cat_url', $cat_url)->first();
 
 		/* Tìm các bản ghi trong bảng News có điều kiện thỏa mãn */
-		$cat_detail = News::where('news_category', '=', $cat_id->id)
-			->orderBy('news.id', 'desc')
-			->paginate(5);
-
-		/* Truyền biến sang view */
-		return view('home.category_detail', ['cat_detail' => $cat_detail]);
+		return Response::json(News::where('news_category', $cat_id->id)->orderBy('id', 'desc')->get());
 	}
 
 	/**
@@ -62,8 +57,10 @@ class HomeController extends Controller {
 	 * @return Response
 	 */
 	public function show($news_url) {
-		$news_detail = News::where('news_url', '=', $news_url)->first();
-		return view('home.news_detail', ['news_detail' => $news_detail]);
+		$news = News::where('news_url', $news_url)->first();
+		$news->comment;
+		return Response::json($news);
+
 	}
 
 	/**
@@ -113,5 +110,18 @@ class HomeController extends Controller {
 		} else {
 			return redirect('dashboard');
 		}
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function prd() {
+		return Response::json(News::orderBy('id', 'desc')->where('news_status', '1')->get());
+	}
+
+	public function cat_dropdown() {
+		return Response::json(Category::get());
 	}
 }

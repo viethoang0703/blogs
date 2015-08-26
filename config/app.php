@@ -95,7 +95,7 @@ return [
 	|
 	 */
 
-	'log' => 'single',
+	'log' => 'daily',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -145,7 +145,7 @@ return [
 		App\Providers\RouteServiceProvider::class,
 		App\Providers\SidebarrightServiceProvider::class,
 
-		DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+		//DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
 
 	],
 
