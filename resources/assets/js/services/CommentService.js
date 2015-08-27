@@ -17,7 +17,7 @@ angular.module('CommentService', [])
 			},
 
 			destroy: function(id) {
-				return $http.delete('/api/comments' + id);
+				return $http.delete('/api/comments/' + id);
 			}
 		}
 	});

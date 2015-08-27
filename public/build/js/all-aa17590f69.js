@@ -1,8 +1,11 @@
 angular.module('HomeApp', [
 	'ngRoute',
 	'ngSanitize',
+	//'ngResource',
+	//'restangular',
 	'appRoutes',
 	'NewsController',
+	//'NewsService',
 	'SidebarController',
 	'CommentController',
 	'CommentService',
@@ -53,46 +56,35 @@ angular.module('appRoutes', [])
 		}
 	]);
 angular.module('CommentController', [])
-	.controller('CommentController', function($scope, $http, Comment) {
-		$scope.commentData = {};
+	.controller('CommentController', function($scope, $http, $routeParams, Comment) {
 		$scope.loading = true;
 		Comment.get()
 			.success(function(data) {
 				$scope.comments = data;
 				$scope.loading = false;
 			});
-		$scope.submitComment = function() {
-			$scope.loading = true;
-			Comment.save($scope.commentData)
-				.success(function(data) {
-					Comment.get()
-						.success(function(getData) {
-							$scope.comments = getData;
-							$scope.loading = false;
-						});
-				})
-				.error(function(data) {
-					console.log(data);
-				});
+		// Thực hiện khi comment form submit
+		$scope.submitComment = function(new_detail) {
+			//Gọi services và truyền data sang service thực hiện save
+			$scope.commentData.news_id = new_detail.id;
+			Comment.save($scope.commentData).success(function(data) {
+				$scope.commentData = {};
+				$scope.news_detail.comment.push(data);
+			});
 		};
 
-		$scope.deleteComment = function(id) {
-			$scope.loading = true;
-			Comment.destroy(id)
-				.success(function(data) {
-					Comment.get()
-						.success(function(getData) {
-							$scope.comments = getData;
-							$scope.loading = false;
-						});
-				});
+		$scope.deleteComment = function(news_detail, person) {
+			Comment.destroy(person.id).success(function(person) {
+				var idx = $scope.news_detail.comment.indexOf(person);
+				$scope.news_detail.comment.splice(idx, 1);
+			});
 		};
-
 	});
 angular.module('NewsController', ['angularUtils.directives.dirPagination'])
 	.controller('NewsController', ['$scope', '$http', '$routeParams',
 
 		function($scope, $http, $routeParams) {
+			$scope.commentData = {};
 			$scope.getList = function() {
 				$http.get('/api/news').then(function(data) {
 					$scope.news = data.data;
@@ -102,7 +94,9 @@ angular.module('NewsController', ['angularUtils.directives.dirPagination'])
 			$scope.find = function() {
 				$http.get('/api/news/' + $routeParams.id).then(function(data) {
 					$scope.news_detail = data.data;
+					$scope.commentData.news_id = $scope.news_detail.id;
 				});
+
 			}
 
 			$scope.find_cat = function() {
@@ -138,6 +132,7 @@ angular.module('CommentService', [])
 			get: function() {
 				return $http.get('/api/comments');
 			},
+			//Gọi api và truyền data nhận được (theo phương thức Post và route đến /api/comments)
 			save: function(commentData) {
 				return $http({
 					method: 'POST',
@@ -150,8 +145,9 @@ angular.module('CommentService', [])
 			},
 
 			destroy: function(id) {
-				return $http.delete('/api/comments' + id);
+				return $http.delete('/api/comments/' + id);
 			}
 		}
 	});
+
 //# sourceMappingURL=all.js.map

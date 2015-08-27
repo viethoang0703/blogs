@@ -33,15 +33,15 @@ class CommentController extends Controller {
 	 * Lưu comment mới vào CSDL
 	 */
 	public function store(Request $request) {
-		Comment::create(array(
+		$comment = Comment::create(array(
 			'user' => $request->user,
 			'text' => $request->text,
 			'email' => $request->email,
-			'news_id' => $request->newsId,
+			'news_id' => $request->news_id,
 			'created_at' => date('Y-m-d H:i:s'),
 		));
 
-		return Response::json(array('success' => true));
+		return Response::json($comment);
 	}
 
 	/**
