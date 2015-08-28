@@ -18,7 +18,7 @@ elixir(function(mix) {
 			'app.js',
 			'appRoute.js',
 			'controllers/**/*.js',
-			'services/**/*.js'
+			'services/**/*.js',
 
 		])
 		.version([

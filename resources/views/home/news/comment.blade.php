@@ -27,13 +27,13 @@
             </div>
         </div>
         <div ng-repeat="com in news_detail.comment | orderBy:'-id' | limitTo: number as results">
-            <h4>Comment: #@{{com.id}} By @{{com.user}}</h4>
+            <h4>Comment By: @{{com.user}}</h4>
             <h4>
                 <small>Email: @{{com.email}}</small>
                 <small> | Date: @{{com.created_at}}</small>
             </h4>
             <p>@{{com.text}}</p>
-            <p><a href="#" ng-click="deleteComment(news_detail, com)" class="text-muted">Delete</a></p>
+            <p><a href="#" ng-click="deleteComment(news_detail.comment, com, $index)" class="text-muted">Delete</a></p>
         </div>
         <div ng-if="results.length == 0">
             <strong>No Comments...</strong>

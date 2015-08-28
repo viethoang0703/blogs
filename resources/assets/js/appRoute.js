@@ -1,6 +1,6 @@
 angular.module('appRoutes', [])
-	.config(['$routeProvider', '$locationProvider', '$httpProvider',
-		function($routeProvider, $locationProvider, $httpProvider) {
+	.config(['$routeProvider', '$locationProvider',
+		function($routeProvider, $locationProvider) {
 			$routeProvider
 				.when('/', {
 					templateUrl: '/home/index',
@@ -24,7 +24,7 @@ angular.module('appRoutes', [])
 				})
 				.when('/:controller/:action?/:id?', {
 					templateUrl: function(params) {
-						var allowedParams = ['controller', 'action'];
+						var allowedParams = ['controller', 'action', 'id'];
 						var paramVals = [];
 						for (var key in params) {
 							if (allowedParams.indexOf(key) !== -1) {
@@ -37,6 +37,7 @@ angular.module('appRoutes', [])
 				.otherwise({
 					redirectTo: '/index'
 				});
+
 			$locationProvider.html5Mode({
 				enabled: true,
 				requireBase: false

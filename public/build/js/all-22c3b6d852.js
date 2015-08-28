@@ -4,15 +4,17 @@ angular.module('HomeApp', [
 	//'ngResource',
 	//'restangular',
 	'appRoutes',
+
 	'NewsController',
-	//'NewsService',
 	'SidebarController',
 	'CommentController',
+
+	//'NewsService',
 	'CommentService',
 ]);
 angular.module('appRoutes', [])
-	.config(['$routeProvider', '$locationProvider', '$httpProvider',
-		function($routeProvider, $locationProvider, $httpProvider) {
+	.config(['$routeProvider', '$locationProvider',
+		function($routeProvider, $locationProvider) {
 			$routeProvider
 				.when('/', {
 					templateUrl: '/home/index',
@@ -36,7 +38,7 @@ angular.module('appRoutes', [])
 				})
 				.when('/:controller/:action?/:id?', {
 					templateUrl: function(params) {
-						var allowedParams = ['controller', 'action'];
+						var allowedParams = ['controller', 'action', 'id'];
 						var paramVals = [];
 						for (var key in params) {
 							if (allowedParams.indexOf(key) !== -1) {
@@ -49,6 +51,7 @@ angular.module('appRoutes', [])
 				.otherwise({
 					redirectTo: '/index'
 				});
+
 			$locationProvider.html5Mode({
 				enabled: true,
 				requireBase: false
@@ -65,18 +68,26 @@ angular.module('CommentController', [])
 			});
 		// Thực hiện khi comment form submit
 		$scope.submitComment = function(new_detail) {
-			//Gọi services và truyền data sang service thực hiện save
+			//Truyền giá trị news_id cho đối tượng comment
 			$scope.commentData.news_id = new_detail.id;
+
+			//Gọi services và truyền data sang service thực hiện save
 			Comment.save($scope.commentData).success(function(data) {
+				//Sau khi data được lưu thực hiện xóa DL người dùng đã nhập trên form
 				$scope.commentData = {};
+
+				//Đồng thời push vào 'news_detail.comment' để hiển thị comment vừa post luôn phía dưới 
 				$scope.news_detail.comment.push(data);
 			});
 		};
 
-		$scope.deleteComment = function(news_detail, person) {
-			Comment.destroy(person.id).success(function(person) {
-				var idx = $scope.news_detail.comment.indexOf(person);
-				$scope.news_detail.comment.splice(idx, 1);
+		$scope.deleteComment = function(news_detail, person, index) {
+			//Gọi service tìm và thực hiện xóa comment trong CSDL thông qua 'destroy' định nghĩa bên service
+			Comment.destroy(person.id).success(function(news_detail) {
+				//Lấy tổng số comment
+				var len = $scope.news_detail.comment.length;
+				//Không hiển thị comment vừa xóa ngay ở 'view'
+				$scope.news_detail.comment.splice((len - index) - 1, 1);
 			});
 		};
 	});
@@ -91,14 +102,16 @@ angular.module('NewsController', ['angularUtils.directives.dirPagination'])
 
 				});
 			}
+
+			//Tìm bản ghi với id nhận được từ param
 			$scope.find = function() {
 				$http.get('/api/news/' + $routeParams.id).then(function(data) {
 					$scope.news_detail = data.data;
-					$scope.commentData.news_id = $scope.news_detail.id;
 				});
 
 			}
 
+			//Tìm bản ghi thuộc cùng cùng category
 			$scope.find_cat = function() {
 				$http.get('/api/category/' + $routeParams.id).then(function(data) {
 					$scope.categories = data.data;

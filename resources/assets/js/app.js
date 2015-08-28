@@ -4,9 +4,11 @@ angular.module('HomeApp', [
 	//'ngResource',
 	//'restangular',
 	'appRoutes',
+
 	'NewsController',
-	//'NewsService',
 	'SidebarController',
 	'CommentController',
+
+	//'NewsService',
 	'CommentService',
 ]);

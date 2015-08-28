@@ -9,14 +9,16 @@ angular.module('NewsController', ['angularUtils.directives.dirPagination'])
 
 				});
 			}
+
+			//Tìm bản ghi với id nhận được từ param
 			$scope.find = function() {
 				$http.get('/api/news/' + $routeParams.id).then(function(data) {
 					$scope.news_detail = data.data;
-					$scope.commentData.news_id = $scope.news_detail.id;
 				});
 
 			}
 
+			//Tìm bản ghi thuộc cùng cùng category
 			$scope.find_cat = function() {
 				$http.get('/api/category/' + $routeParams.id).then(function(data) {
 					$scope.categories = data.data;

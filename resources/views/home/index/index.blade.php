@@ -6,7 +6,7 @@
 		    </div>
 		    <div class="col-xs-12 col-sm-10">
 		        <div class="col-xs-12 col-lg-12">
-		            <h2><a ng-href="/news/@{{ new.news_url }}">@{{ new.news_tittle }}</a></h2>
+		            <h2><a ng-href="/news/@{{ new.news_url }}">@{{ new.news_tittle limitTo:5}}</a></h2>
 		            <p ng-bind-html="new.news_detail"></p>
 		            <p><a class="btn btn-default pull-right" ng-href="/news/@{{ new.news_url }}" role="button">Chi tiết &raquo;</a></p>
 		        </div>
