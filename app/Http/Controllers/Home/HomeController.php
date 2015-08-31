@@ -11,7 +11,7 @@ use Response;
 class HomeController extends Controller {
 	/**
 	 * Display a listing of the resource.
-	 *
+	 * Trả về tất danh sách tất cả các bài viết
 	 * @return Response
 	 */
 	public function index() {
@@ -52,7 +52,7 @@ class HomeController extends Controller {
 
 	/**
 	 * Display the specified resource.
-	 *
+	 * Hiển thị chi tiết 01 bài viết và các comments nếu có
 	 * @param  int  $id
 	 * @return Response
 	 */
@@ -96,31 +96,36 @@ class HomeController extends Controller {
 
 	/**
 	 * Hiển thị danh sách các bài viết có từ khóa được truyền vào.
-	 *
+	 * Không còn dùng do sử dụng filter của angularjs
 	 *@return Response
 	 */
 	public function search(Request $request) {
-		$keyword = $request->get('keyword');
-		/* Xử lý keyword nhận được */
-		$keyword = str_slug($keyword, '%');
+		// $keyword = $request->get('keyword');
+		// /* Xử lý keyword nhận được */
+		// $keyword = str_slug($keyword, '%');
 
-		if ($keyword) {
-			$results = News::where('news_tittle', 'LIKE', '%' . $keyword . '%')->paginate(2);
-			return view('home.news_search', ['results' => $results, 'keyword' => $keyword]);
-		} else {
-			return redirect('dashboard');
-		}
+		// if ($keyword) {
+		// 	$results = News::where('news_tittle', 'LIKE', '%' . $keyword . '%')->paginate(2);
+		// 	return view('home.news_search', ['results' => $results, 'keyword' => $keyword]);
+		// } else {
+		// 	return redirect('dashboard');
+		// }
 	}
 
 	/**
 	 * Display a listing of the resource.
-	 *
+	 * Hiển thị bài viết có status =1 (sidebar-right)
 	 * @return Response
 	 */
 	public function prd() {
 		return Response::json(News::orderBy('id', 'desc')->where('news_status', '1')->get());
 	}
 
+	/**
+	 * Display a listing of the resource.
+	 * Hiển thị danh sách các category trên thanh navbar
+	 * @return Response
+	 */
 	public function cat_dropdown() {
 		return Response::json(Category::get());
 	}

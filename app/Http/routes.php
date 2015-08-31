@@ -52,19 +52,27 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('admin/user/change-role/{id}', 'Admin\AdminController@updateRole');
 });
 
-// //Home Laravel
-// Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'home\HomeController@index']);
-// Route::get('news/{news_url}', ['as' => 'news', 'uses' => 'home\HomeController@show']);
-// Route::get('category/{cat_url}', ['as' => 'category', 'uses' => 'home\HomeController@category']);
-// Route::get('news/{key?}', ['as' => 'search', 'uses' => 'home\HomeController@search']);
+// // Backend AngularJS
+// Route::get('/auth/index', function () {
+// 	return view('auth.template_admin');
+// });
+// Route::get('auth/{category}/{action?}', function ($category, $action = 'index') {
+// 	return view(join('.', ['auth', $category, $action]));
+// });
+// Route::get('auth/{category}/{action}/{id}', function ($category, $action = 'index', $id) {
+// 	return view(join('.', ['auth', $category, $action]));
+// });
 
-//AngularJS
+// Route::group(['prefix' => 'admin'], function () {
+// 	Route::resource('news', 'Admin\NewsController');
+// 	Route::resource('category', 'Admin\CategoryController');
+// 	Route::resource('admin', 'Admin\AdminController');
+// });
+
+//frontend AngularJS
 
 Route::get('/', function () {
 	return view('template_home');
-});
-Route::get('/news/index', function () {
-	return view('home.index');
 });
 Route::get('home/{category}/{action?}', function ($category, $action = 'index') {
 	return view(join('.', ['home', $category, $action]));

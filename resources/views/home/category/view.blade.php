@@ -7,7 +7,7 @@
             <div class="col-xs-12 col-sm-10">
                 <div class="col-xs-12 col-lg-12">
                     <h2><a href="/news/@{{ category.news_url }}">@{{ category.news_tittle }}</a></h2>
-                    <p ng-bind-html="category.news_detail"></p>
+                    <p ng-bind-html="category.news_detail | limitTo: 300"></p>
                     <p><a class="btn btn-default pull-right" href="/news/@{{ category.news_url }}" role="button">Chi tiết &raquo;</a></p>
                 </div>
             </div>

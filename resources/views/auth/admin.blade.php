@@ -1,4 +1,4 @@
-<!-- resources/views/auth/admin.blade.php -->
+
 @extends('auth.template_admin')
 @section('contents')
 
@@ -19,3 +19,4 @@
 </div>
 
 @stop
+
