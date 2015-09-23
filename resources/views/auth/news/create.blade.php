@@ -22,15 +22,10 @@
     </div>
 
     <!-- File Button -->
-<!--     <div class="form-group">
-        <label class="col-md-4 control-label" for="filebutton">Ảnh mô tả</label>
-        <div class="col-md-4">
-            <input id="filebutton" name="news_image" ng-model="news.news_image" class="input-file" type="file">
-        </div>
-    </div> -->
+
 
     <!-- Multiple Radios (inline) -->
-    <div class="form-group">
+    <div class="form-group" ng-init="create()">
         <label class="col-md-4 control-label" for="radios">Status</label>
         <div class="col-md-4">
             <label class="radio-inline" for="radios-1">

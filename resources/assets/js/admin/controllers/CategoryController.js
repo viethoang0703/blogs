@@ -27,6 +27,12 @@ angular.module('CategoryController', [])
 						});
 			};
 
+			$scope.create = function() {
+				$scope.category = {
+					cat_status: '1'
+				};
+			}
+
 			$scope.update = function(category) {
 				$scope.loading = true;
 				Category.getEdit(category)

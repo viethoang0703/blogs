@@ -27,6 +27,8 @@ elixir(function(mix) {
 				'admin/appRoute.js',
 				'admin/controllers/**/*.js',
 				'admin/services/**/*.js',
+				// 'admin/ng-file-upload.min.js',
+				// 'admin/ng-file-upload-shim.min.js',
 			], 'public/js/admin.js');
 
 });

@@ -8,6 +8,7 @@ angular.module('AdminApp', [
 		'NewsController',
 		'CategoryController',
 		'UserController',
+		'HeaderController',
 
 		'NewsService',
 		'CategoryService',
@@ -36,7 +37,7 @@ angular.module('appRoutes', [])
 					}
 				})
 				.otherwise({
-					redirectTo: '/auth'
+					redirectTo: '/admin'
 				});
 
 			//$locationProvider.html5Mode(true);
@@ -71,6 +72,12 @@ angular.module('CategoryController', [])
 						});
 			};
 
+			$scope.create = function() {
+				$scope.category = {
+					cat_status: '1'
+				};
+			}
+
 			$scope.update = function(category) {
 				$scope.loading = true;
 				Category.getEdit(category)
@@ -95,6 +102,12 @@ angular.module('CategoryController', [])
 
 		}
 	]);
+ angular.module('HeaderController', [])
+ 	.controller('HeaderController', function($scope, $location) {
+ 		$scope.isActive = function(viewLocation) {
+ 			return viewLocation === $location.path();
+ 		};
+ 	});
 angular.module('NewsController', [])
 	.controller('NewsController', ['$scope', '$location', '$routeParams', 'News', 'Restangular',
 		function($scope, $location, $routeParams, News, Restangular) {
@@ -117,8 +130,18 @@ angular.module('NewsController', [])
 				News.getCreate()
 					.then(function(data) {
 						$scope.category = data;
+						$scope.news = {
+							news_status: '1'
+						};
 					});
-			}
+			};
+
+			$scope.edit = function() {
+				News.getCreate()
+					.then(function(data) {
+						$scope.category = data;
+					});
+			};
 
 			$scope.store = function(news) {
 				$scope.loading = true;
@@ -140,7 +163,7 @@ angular.module('NewsController', [])
 								$scope.loaing = false;
 							});
 					});
-			}
+			};
 
 			$scope.destroy = function(news) {
 				$scope.loaing = true;
@@ -151,8 +174,9 @@ angular.module('NewsController', [])
 							$scope.news.splice(index, 1);
 						}
 					});
-			}
+			};
 
+			$scope.$location = $location;
 		}
 	]);
 angular.module('UserController', [])

@@ -16,7 +16,7 @@
     <div class="form-group">
         <label class="col-md-4 control-label" for="selectbasic">Chuyên mục</label>
         <div class="col-md-6">
-            <select id="selectbasic" name ="news_category" ng-model="news.news_category" class="form-control" ng-init="create()" ng-options="cat.id as cat.cat_name for cat in category">
+            <select id="selectbasic" name ="news_category" ng-model="news.news_category" class="form-control" ng-init="edit()" ng-options="cat.id as cat.cat_name for cat in category">
                 <option value="">@{{news.category.cat_name}}</option>
             </select>
         </div>

@@ -18,7 +18,7 @@ angular.module('appRoutes', [])
 					}
 				})
 				.otherwise({
-					redirectTo: '/auth'
+					redirectTo: '/admin'
 				});
 
 			//$locationProvider.html5Mode(true);

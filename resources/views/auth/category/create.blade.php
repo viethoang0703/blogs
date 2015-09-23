@@ -13,7 +13,7 @@
     </div>
 
     <!-- Multiple Radios (inline) -->
-    <div class="form-group">
+    <div class="form-group" ng-init="create()">
         <label class="col-md-4 control-label" for="radios">Status</label>
         <div class="col-md-4">
             <label class="radio-inline" for="radios-1">

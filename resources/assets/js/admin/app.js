@@ -8,6 +8,7 @@ angular.module('AdminApp', [
 		'NewsController',
 		'CategoryController',
 		'UserController',
+		'HeaderController',
 
 		'NewsService',
 		'CategoryService',

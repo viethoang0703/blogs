@@ -20,8 +20,18 @@ angular.module('NewsController', [])
 				News.getCreate()
 					.then(function(data) {
 						$scope.category = data;
+						$scope.news = {
+							news_status: '1'
+						};
 					});
-			}
+			};
+
+			$scope.edit = function() {
+				News.getCreate()
+					.then(function(data) {
+						$scope.category = data;
+					});
+			};
 
 			$scope.store = function(news) {
 				$scope.loading = true;
@@ -43,7 +53,7 @@ angular.module('NewsController', [])
 								$scope.loaing = false;
 							});
 					});
-			}
+			};
 
 			$scope.destroy = function(news) {
 				$scope.loaing = true;
@@ -54,7 +64,8 @@ angular.module('NewsController', [])
 							$scope.news.splice(index, 1);
 						}
 					});
-			}
+			};
 
+			$scope.$location = $location;
 		}
 	]);
