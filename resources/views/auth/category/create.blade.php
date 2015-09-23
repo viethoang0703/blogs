@@ -1,9 +1,4 @@
-<!-- resources/views/auth/category/add_cat.blade.php -->
-@extends('auth.template_admin')
-@section('contents')
-
-<form class="form-horizontal" method="post" action="{{ url('admin/category/add') }}" enctype="multipart/form-data">
-    {!! csrf_field() !!}
+<form class="form-horizontal" ng-controller="CategoryController" ng-submit="store(category)">
     <fieldset>
 
     <!-- Form Name -->
@@ -13,7 +8,7 @@
     <div class="form-group">
         <label class="col-md-4 control-label" for="textinput">Tên danh mục</label>
         <div class="col-md-6">
-        <input id="textinput" name="cat_name" value="{{ old('cat_name') }}" value="{{ old('news_tittle') }}" placeholder="Nhập tên danh mục" class="form-control input-md" type="text" required>
+        <input id="textinput" name="cat_name" ng-model="category.cat_name" placeholder="Nhập tên danh mục" class="form-control input-md" type="text" required>
         </div>
     </div>
 
@@ -21,12 +16,12 @@
     <div class="form-group">
         <label class="col-md-4 control-label" for="radios">Status</label>
         <div class="col-md-4">
-            <label class="radio-inline" for="radios-0">
-                <input name="cat_status" id="radios-0" value="1" checked="checked" type="radio">
+            <label class="radio-inline" for="radios-1">
+                <input name="cat_status" id="radios-1" ng-model="category.cat_status" ng-value="1" type="radio">
                 New
             </label>
-            <label class="radio-inline" for="radios-1">
-                <input name="cat_status" id="radios-1" value="0" type="radio">
+            <label class="radio-inline" for="radios-0">
+                <input name="cat_status" id="radios-0" ng-model="category.cat_status" ng-value="0" type="radio">
                 Old
             </label>
         </div>
@@ -42,5 +37,3 @@
     </div>
     </fieldset>
 </form>
-
-@stop

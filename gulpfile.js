@@ -21,12 +21,12 @@ elixir(function(mix) {
 				'home/controllers/**/*.js',
 				'home/services/**/*.js',
 			], 'public/js/home.js')
-		// .scripts(
-		// 	[
-		// 		'admin/app.js',
-		// 		'admin/appRoute.js',
-		// 		'admin/controllers/**/*.js',
-		// 		'admin/services/**/*.js',
-		// 	], 'public/js/admin.js');
+		.scripts(
+			[
+				'admin/app.js',
+				'admin/appRoute.js',
+				'admin/controllers/**/*.js',
+				'admin/services/**/*.js',
+			], 'public/js/admin.js');
 
 });

@@ -1,10 +1,18 @@
-// angular.module('AdminApp', [
-// 	'ngRoute',
-// 	'ngSanitize',
-// 	'ngResource',
-// 	'restangular',
-// 	'appRoutes',
+angular.module('AdminApp', [
+		'ngRoute',
+		'ngSanitize',
+		'ngResource',
+		'restangular',
+		'appRoutes',
 
-// 	'NewsController',
-// 	'NewsService',
-// ]);
+		'NewsController',
+		'CategoryController',
+		'UserController',
+
+		'NewsService',
+		'CategoryService',
+		'UserService',
+	])
+	.config(function(RestangularProvider, $httpProvider) {
+		RestangularProvider.setBaseUrl('/admin');
+	});

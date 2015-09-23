@@ -1,7 +1,3 @@
-
-@extends('auth.template_admin')
-@section('contents')
-
 <div class="row">
     <h2>Trang chủ quản trị</h2>
     <div class="table-responsive">
@@ -17,6 +13,4 @@
     </table>
     </div>
 </div>
-
-@stop
 

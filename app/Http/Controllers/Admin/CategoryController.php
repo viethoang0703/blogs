@@ -15,10 +15,9 @@ class CategoryController extends Controller {
 	 */
 
 	public function index() {
-		/* Thực hiện query data và phân trang  */
-		$page_title = 'Quản lý danh mục';
-		$categories = Category::orderBy('id')->paginate(5);
-		return view('auth.category.category', ['categories' => $categories, 'page_title' => $page_title]);
+		$categories = Category::all();
+		return response()->json($categories);
+
 	}
 
 	/**
@@ -27,8 +26,8 @@ class CategoryController extends Controller {
 	 * @return Response
 	 */
 	public function create() {
-		$page_title = 'Quản lý danh mục';
-		return view('auth.category.add_cat', ['page_title' => $page_title]);
+		// $category = Category::all();
+		// return response()->json($category);
 	}
 
 	/**
@@ -39,18 +38,17 @@ class CategoryController extends Controller {
 	 */
 	public function store(Request $request) {
 		$cat_name = $request->cat_name;
-		$cat_status = $request->cat_status;
 
 		/* Xử lý chuỗi (bỏ dấu, thêm "-") */
 		$cat_url = str_slug($cat_name);
 		/* Thêm data vào CSDL */
-		Category::insert(
-			[
-				'cat_name' => $cat_name,
-				'cat_status' => $cat_status,
-				'cat_url' => $cat_url,
-			]);
-		return redirect('admin/category');
+
+		$category = Category::create([
+			'cat_name' => $request->cat_name,
+			'cat_status' => $request->cat_status,
+			'cat_url' => $cat_url,
+		]);
+		return $category;
 
 	}
 
@@ -61,7 +59,8 @@ class CategoryController extends Controller {
 	 * @return Response
 	 */
 	public function show($id) {
-		//
+		$category = Category::find($id);
+		return response()->json($category);
 	}
 
 	/**
@@ -72,14 +71,6 @@ class CategoryController extends Controller {
 	 */
 	public function edit($id) {
 		/* Truyền data sang view theo biến $id nhận được */
-
-		$category = Category::where('id', '=', $id)->first();
-		if ($category) {
-			$page_title = 'Quản lý danh mục';
-			return view('auth.category.edit_cat', ['category' => $category, 'page_title' => $page_title]);
-		} else {
-			return redirect('admin/category');
-		}
 	}
 
 	/**
@@ -91,13 +82,16 @@ class CategoryController extends Controller {
 	 */
 	public function update(Request $request, $id) {
 		$cat_url = str_slug($request->cat_name);
-		Category::updateOrCreate(['id' => $id],
-			[
-				'cat_name' => $request->cat_name,
-				'cat_status' => $request->cat_status,
-				'cat_url' => $cat_url,
-			]);
-		return redirect('admin/category');
+		try {
+			$category = Category::findOrfail($id);
+			$category->cat_name = $request->cat_name;
+			$category->cat_status = $request->cat_status;
+			$category->cat_url = $cat_url;
+			$category->push();
+			return $category;
+		} catch (\Illuminate\Database\QueryException $e) {
+			return '';
+		}
 	}
 
 	/**
@@ -107,11 +101,13 @@ class CategoryController extends Controller {
 	 * @return Response
 	 */
 	public function destroy($id) {
-		try {
-			$category = Category::findOrFail($id)->delete();
-			return redirect('admin/category');
-		} catch (Exception $e) {
-			return abort(404);
-		}
+		// try {
+		// 	$category = Category::findOrFail($id)->delete();
+		// 	return redirect('admin/category');
+		// } catch (Exception $e) {
+		// 	return abort(404);
+		// }
+		$category = Category::find($id);
+		$category->delete();
 	}
 }

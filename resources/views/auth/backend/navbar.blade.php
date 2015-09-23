@@ -12,14 +12,14 @@
         </div><!--End .navbar-header -->
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li @if(url('admin') == Request::url()) class="active" @endif><a href="{{ url('admin') }}">Trang chủ</a></li>
-                <li @if(url('admin/user-manager') == Request::url()) class="active" @endif><a href="{{ url('admin/user-manager') }}">Quản lý thành viên</a></li>
-                <li @if(url('admin/category') == Request::url()) class="active" @endif><a href="{{ url('admin/category') }}">Quản lý danh mục</a></li>
-                <li @if(url('admin/news') == Request::url()) class="active" @endif><a href="{{ url('admin/news') }}">Quản lý bài viết</a></li>
+                <li><a ng-href="#">Trang chủ</a></li>
+                <li><a ng-href="#/user">Quản lý thành viên</a></li>
+                <li><a ng-href="#/category">Quản lý danh mục</a></li>
+                <li><a ng-href="#/news">Quản lý bài viết</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ url('admin/user/edit', Auth::user()->id) }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{Auth::user()->name}}</a></li>
-                <li><a href="{{ url('auth/logout') }}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
+                <li><a ng-href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Admin</a></li>
+                <li><a ng-href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
             </ul>
         </div><!--End .nav-collapse -->
     </div><!--End .container-fluid -->
