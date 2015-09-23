@@ -1,4 +1,4 @@
-angular.module('CategoryController', [])
+angular.module('CategoryController', ['angularUtils.directives.dirPagination'])
 	.controller('CategoryController', ['$scope', '$location', '$routeParams', 'Category', 'Restangular',
 		function($scope, $location, $routeParams, Category, Restangular) {
 			$scope.find = function() {

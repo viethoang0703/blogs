@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="category in categories">
+                <tr dir-paginate="category in categories | itemsPerPage:5 as results">
                     <td>@{{category.id}}</td>
                     <td>@{{category.cat_name}}</td>
                     <td ng-if="category.cat_status ==1">New</td>
@@ -23,6 +23,7 @@
             </tbody>
         </table>
         <div class="pull-right">
+            <dir-pagination-controls></dir-pagination-controls>
         </div>
     </div>
 </div>

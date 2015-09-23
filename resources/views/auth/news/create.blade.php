@@ -1,4 +1,4 @@
-<form class="form-horizontal" ng-controller="NewsController" ng-submit="store(news)">
+<form class="form-horizontal" ng-controller="NewsController" ng-submit="store(news)" ng-submit="uploadPic(news.news_image)">
     <fieldset>
     <!-- Form Name -->
     <legend>Thêm mới bài viết</legend>
@@ -22,7 +22,19 @@
     </div>
 
     <!-- File Button -->
-
+<!--     <div class="form-group">
+        <label class="col-md-4 control-label" for="filebutton">Ảnh mô tả</label>
+        <div class="col-md-4">
+            <input type="file" id="filebutton" name="news_image" ngf-select ng-model="news.news_image" class="input-file">
+        </div>
+        <img ng-show="myForm.file.$valid" ngf-thumbnail="!news.news_image.$error && news.news_image" class="thumb">
+        <button ng-click="news.news_image = null" ng-show="news.news_image">Remove</button>
+        <span class="progress" ng-show="news.news_image.progress >= 0">
+            <div style="width:@{{news.news_image.progress}}%" ng-bind="news.news_image.progress + '%'"></div>
+        </span>
+        <span ng-show="news.news_image.result">Upload Successful</span>
+        <span class="err" ng-show="errorMsg">@{{errorMsg}}</span>
+    </div> -->
 
     <!-- Multiple Radios (inline) -->
     <div class="form-group" ng-init="create()">

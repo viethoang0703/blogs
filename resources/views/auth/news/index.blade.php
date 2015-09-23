@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="new in news">
+                <tr dir-paginate="new in news | itemsPerPage:5 as results">
                     <td>@{{new.id}}</td>
                     <td>@{{new.news_tittle}}</td>
                     <td>@{{new.category.cat_name}}</td>
@@ -25,6 +25,7 @@
             </tbody>
         </table>
         <div class="pull-right">
+            <dir-pagination-controls></dir-pagination-controls>
         </div>
     </div>
 </div>

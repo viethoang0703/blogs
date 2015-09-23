@@ -1,4 +1,4 @@
-angular.module('UserController', [])
+angular.module('UserController', ['angularUtils.directives.dirPagination'])
 	.controller('UserController', ['$scope', '$location', '$routeParams', 'User', 'Restangular',
 		function($scope, $location, $routeParams, User, Restangular) {
 			$scope.find = function() {

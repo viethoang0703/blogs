@@ -43,7 +43,7 @@ angular.module('appRoutes', [])
 			//$locationProvider.html5Mode(true);
 		}
 	]);
-angular.module('CategoryController', [])
+angular.module('CategoryController', ['angularUtils.directives.dirPagination'])
 	.controller('CategoryController', ['$scope', '$location', '$routeParams', 'Category', 'Restangular',
 		function($scope, $location, $routeParams, Category, Restangular) {
 			$scope.find = function() {
@@ -108,7 +108,7 @@ angular.module('CategoryController', [])
  			return viewLocation === $location.path();
  		};
  	});
-angular.module('NewsController', [])
+angular.module('NewsController', ['angularUtils.directives.dirPagination'])
 	.controller('NewsController', ['$scope', '$location', '$routeParams', 'News', 'Restangular',
 		function($scope, $location, $routeParams, News, Restangular) {
 			$scope.find = function() {
@@ -175,11 +175,32 @@ angular.module('NewsController', [])
 						}
 					});
 			};
+			// $scope.uploadPic = function(file) {
+			// 	file.upload = Upload.upload({
+			// 		url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+			// 		fields: {
+			// 			username: $scope.username
+			// 		},
+			// 		file: file,
+			// 	});
 
-			$scope.$location = $location;
+			// 	file.upload.then(function(response) {
+			// 		$timeout(function() {
+			// 			file.result = response.data;
+			// 		});
+			// 	}, function(response) {
+			// 		if (response.status > 0)
+			// 			$scope.errorMsg = response.status + ': ' + response.data;
+			// 	});
+
+			// 	file.upload.progress(function(evt) {
+			// 		// Math.min is to fix IE which reports 200% sometimes
+			// 		file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+			// 	});
+			// }
 		}
 	]);
-angular.module('UserController', [])
+angular.module('UserController', ['angularUtils.directives.dirPagination'])
 	.controller('UserController', ['$scope', '$location', '$routeParams', 'User', 'Restangular',
 		function($scope, $location, $routeParams, User, Restangular) {
 			$scope.find = function() {

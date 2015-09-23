@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in users">
+                <tr dir-paginate="user in users | itemsPerPage:5 as results">
                     <td>@{{user.id}}</td>
                     <td><a href="#">@{{user.email}}</td>
                     <td>@{{user.name}}</td>
@@ -25,6 +25,7 @@
             </tbody>
         </table>
         <div class="pull-right">
+            <dir-pagination-controls></dir-pagination-controls>
         </div>
     </div><!-- End .table-responsive -->
 </div><!-- End .row -->
